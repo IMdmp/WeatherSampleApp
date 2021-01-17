@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 import com.example.sampleweatherapp.CustomApplication
 import com.example.sampleweatherapp.network.WeatherApi
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import retrofit2.await
 import java.lang.Exception
 
@@ -15,7 +14,7 @@ const val CITY_IDS = "1701668,3067696,1835848"
 
 
 class WeatherListViewModel(private val weatherApi: WeatherApi) : ViewModel() {
-    var apiErrorMessage =""
+    var apiErrorMessage = ""
 
     private val favoriteCityList = mutableSetOf<String>()
     private val _weatherList = MutableLiveData<List<WeatherModel>>()
@@ -42,7 +41,7 @@ class WeatherListViewModel(private val weatherApi: WeatherApi) : ViewModel() {
                         .toDomain(favoriteCityList)
                 _status.value = ApiStatus.DONE
             } catch (e: Exception) {
-                apiErrorMessage=e.message?:"Error retrieving data"
+                apiErrorMessage = e.message ?: "Error retrieving data"
                 _status.value = ApiStatus.ERROR
             }
         }
@@ -57,7 +56,7 @@ class WeatherListViewModel(private val weatherApi: WeatherApi) : ViewModel() {
                 _weatherDetail.value = domainData
                 _status.value = ApiStatus.DONE
             } catch (e: Exception) {
-                apiErrorMessage=e.message?:"Error retrieving data"
+                apiErrorMessage = e.message ?: "Error retrieving data"
                 _status.value = ApiStatus.ERROR
             }
         }
@@ -77,9 +76,9 @@ class WeatherListViewModel(private val weatherApi: WeatherApi) : ViewModel() {
         item.isFavorite = isFavorite
         _weatherDetail.value = item
 
-        if(isFavorite){
+        if (isFavorite) {
             favoriteCityList.add(city)
-        }else{
+        } else {
             favoriteCityList.remove(city)
         }
 

@@ -12,7 +12,8 @@ import com.example.sampleweatherapp.databinding.ItemWeatherBinding
 import com.example.sampleweatherapp.network.CELCIUS_SYMBOL
 
 
-class WeatherAdapter(val weatherAdapterListener: WeatherAdapterListener) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
+class WeatherAdapter(val weatherAdapterListener: WeatherAdapterListener) :
+    RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
     val weatherList = mutableListOf<WeatherModel>()
 
@@ -44,24 +45,27 @@ class WeatherAdapter(val weatherAdapterListener: WeatherAdapterListener) : Recyc
 
             if (isFreezing(tempInt)) {
                 binding.clContainer.background.setColorFilter(
-                    Color.parseColor("#1976D2"),
+                    freezing,
                     PorterDuff.Mode.SRC_ATOP
                 )
             } else if (isCold(tempInt)) {
                 binding.clContainer.background.setColorFilter(
-                    Color.parseColor("#26C6DA"),
+                    cold,
                     PorterDuff.Mode.SRC_ATOP
                 )
 
             } else if (isWarm(tempInt)) {
                 binding.clContainer.background.setColorFilter(
-                Color.parseColor("#66BB6A"),
+                    warm,
                     PorterDuff.Mode.SRC_ATOP
                 )
 
             } else {
                 // its hot.
-
+                binding.clContainer.background.setColorFilter(
+                    hot,
+                    PorterDuff.Mode.SRC_ATOP
+                )
             }
             binding.clContainer.setOnClickListener {
                 weatherAdapterListener.itemClicked(item)
@@ -101,11 +105,11 @@ class WeatherAdapter(val weatherAdapterListener: WeatherAdapterListener) : Recyc
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = weatherList[position]
-        holder.bind(item,weatherAdapterListener)
+        holder.bind(item, weatherAdapterListener)
 
     }
 
-    interface WeatherAdapterListener{
+    interface WeatherAdapterListener {
         fun itemClicked(weatherModel: WeatherModel)
     }
 }

@@ -31,7 +31,7 @@ data class WeatherData(
         return WeatherModel(
             locationName = name,
             weatherStatus = weather[0].main,
-            currentTemp = String.format("%.1f",main.temp),
+            currentTemp = String.format("%.1f", main.temp),
             isFavorite = isFavorite,
             lowAndHighTemperature = ""
         )

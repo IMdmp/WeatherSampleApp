@@ -17,6 +17,15 @@ data class GetWeatherDataResponse(
     val wind: Wind
 ) {
     fun toDomain(favoriteCityList: MutableSet<String>): WeatherModel? {
-        return WeatherModel(name,weather[0].main,String.format("%.1f",main.temp).plus(CELCIUS_SYMBOL),favoriteCityList.contains(name),"High ${main.temp_max} $CELCIUS_SYMBOL / Low ${main.temp_min} $CELCIUS_SYMBOL")
+        return WeatherModel(
+            name,
+            weather[0].main,
+            String.format("%.1f", main.temp).plus(CELCIUS_SYMBOL),
+            favoriteCityList.contains(name),
+            "High ${String.format(
+                "%.0f",
+                main.temp_max
+            )} $CELCIUS_SYMBOL / Low ${String.format("%.0f", main.temp_min)} $CELCIUS_SYMBOL"
+        )
     }
 }

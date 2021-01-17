@@ -5,6 +5,6 @@ data class WeatherModel(
     var weatherStatus: String,
     var currentTemp: String,
     var isFavorite: Boolean,
-    var lowAndHighTemperature:String=""
+    var lowAndHighTemperature: String = ""
 ) {
 }

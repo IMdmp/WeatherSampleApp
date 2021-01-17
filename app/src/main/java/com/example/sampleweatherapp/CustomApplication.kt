@@ -9,12 +9,11 @@ import timber.log.Timber
 
 class CustomApplication:Application() {
     companion object{
-        const val appKey ="APP_KEY_HERE"
+        const val appKey ="873046276e65f35590a72961b7234ea5"
 
     }
     lateinit var applicationComponent: ApplicationComponent
-
-
+    
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
