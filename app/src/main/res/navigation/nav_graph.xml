@@ -6,13 +6,19 @@
     <fragment
         android:id="@+id/weatherListFragment"
         android:name="com.example.sampleweatherapp.features.weatherlist.WeatherListFragment"
-        android:label="WeatherListFragment" >
+        >
         <action
             android:id="@+id/action_weatherListFragment_to_weatherDetailFragment"
             app:destination="@id/weatherDetailFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/weatherDetailFragment"
         android:name="com.example.sampleweatherapp.features.weatherdetail.WeatherDetailFragment"
-        android:label="WeatherDetailFragment" />
+         >
+
+        <argument
+            android:name="city"
+            app:argType="string" />
+    </fragment>
 </navigation>

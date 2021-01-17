@@ -3,28 +3,20 @@ package com.example.sampleweatherapp.features.weatherlist
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sampleweatherapp.R
 import com.example.sampleweatherapp.databinding.ItemWeatherBinding
+import com.example.sampleweatherapp.network.CELCIUS_SYMBOL
 
-
-const val CELCIUS_SYMBOL = " \u2103"
 
 class WeatherAdapter(val weatherAdapterListener: WeatherAdapterListener) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
     val weatherList = mutableListOf<WeatherModel>()
 
     class ViewHolder(val binding: ItemWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        val favoriteFilled =
-            ContextCompat.getDrawable(binding.root.context, R.drawable.ic_baseline_favorite_24)
-        val favoriteEmpty = ContextCompat.getDrawable(
-            binding.root.context,
-            R.drawable.ic_baseline_favorite_border_24
-        )
-
 
         val freezing = ContextCompat.getColor(binding.root.context, R.color.freezing)
         val cold = ContextCompat.getColor(binding.root.context, R.color.cold)
@@ -38,16 +30,16 @@ class WeatherAdapter(val weatherAdapterListener: WeatherAdapterListener) : Recyc
         ) {
             val temp = item.currentTemp
 
-            val tempInt = temp.toInt()
+            val tempInt = temp.toFloat()
 
             binding.tvTemp.text = "${item.currentTemp} $CELCIUS_SYMBOL"
             binding.tvCity.text = item.locationName
             binding.tvStatus.text = item.weatherStatus
 
             if (item.isFavorite) {
-                binding.ivFavorite.setImageDrawable(favoriteFilled)
+                binding.ivFavorite.visibility = View.VISIBLE
             } else {
-                binding.ivFavorite.setImageDrawable(favoriteEmpty)
+                binding.ivFavorite.visibility = View.GONE
             }
 
             if (isFreezing(tempInt)) {
@@ -76,16 +68,16 @@ class WeatherAdapter(val weatherAdapterListener: WeatherAdapterListener) : Recyc
             }
         }
 
-        private fun isFreezing(tempInt: Int): Boolean {
+        private fun isFreezing(tempInt: Float): Boolean {
             return tempInt <= 0
         }
 
-        private fun isCold(tempInt: Int): Boolean {
-            return tempInt in 1..15
+        private fun isCold(tempInt: Float): Boolean {
+            return tempInt in 1.0..15.0
         }
 
-        private fun isWarm(tempInt: Int): Boolean {
-            return tempInt in 16..30
+        private fun isWarm(tempInt: Float): Boolean {
+            return tempInt in 16.0..30.0
         }
 
 

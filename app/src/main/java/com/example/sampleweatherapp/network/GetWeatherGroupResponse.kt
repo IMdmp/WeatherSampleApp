@@ -6,29 +6,35 @@ data class GetWeatherGroupResponse(
     val cnt: Int,
     val list: List<WeatherData>
 ) {
-    fun toDomain(): List<WeatherModel> {
+    fun toDomain(favoriteCityList: MutableSet<String>): List<WeatherModel> {
         val retList = mutableListOf<WeatherModel>()
         list.forEach {
-            retList.add(it.toDomain())
+            retList.add(it.toDomain(favoriteCityList.contains(it.name)))
         }
         return retList
     }
 }
 
 data class WeatherData(
-        val clouds: Clouds,
-        val coord: Coord,
-        val dt: Int,
-        val id: Int,
-        val main: Main,
-        val name: String,
-        val sys: Sys,
-        val visibility: Int,
-        val weather: List<Weather>,
-        val wind: Wind
-){
-    fun toDomain():WeatherModel{
-        return WeatherModel(locationName = name,weatherStatus = "status",currentTemp = "23",isFavorite = false)
+    val clouds: Clouds,
+    val coord: Coord,
+    val dt: Int,
+    val id: Int,
+    val main: Main,
+    val name: String,
+    val sys: Sys,
+    val visibility: Int,
+    val weather: List<Weather>,
+    val wind: Wind
+) {
+    fun toDomain(isFavorite: Boolean): WeatherModel {
+        return WeatherModel(
+            locationName = name,
+            weatherStatus = weather[0].main,
+            currentTemp = String.format("%.1f",main.temp),
+            isFavorite = isFavorite,
+            lowAndHighTemperature = ""
+        )
     }
 }
 
